@@ -1,0 +1,21 @@
+# Ignore all episode_positions folders under any models directory
+gym_pybullet_drones/main/models/**/episode_positions/
+
+# Ignore all episode_positions folders anywhere in the repository
+**/episode_positions/
+
+# Ignore all __pycache__ folders
+__pycache__/
+
+# Ignore the physics_informed_traj folder and its contents
+gym_pybullet_drones/main/simple_baseline_code/physics_informed_traj/
+
+gym_pybullet_drones/main/simple_baseline_code/heatmap.py 
+gym_pybullet_drones/main/simple_baseline_code/process_trajectory.py
+gym_pybullet_drones/main/simple_baseline_code/processed_simple_baseline_traj.csv 
+gym_pybullet_drones/main/simple_baseline_code/trajectory_baseline.csv
+
+gym_pybullet_drones/main/simple_baseline_code/safe_ranges_minmax.pdf 
+gym_pybullet_drones/main/simple_baseline_code/te.py
+gym_pybullet_drones/main/simple_baseline_code/3d_lab.pdf
+
