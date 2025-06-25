@@ -71,24 +71,24 @@ The PID parameters for the drone control are defined in `gym_pybullet_drones/con
 The following code files are from ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with or without our own modification to suit specific project needs.
 
 ```
-assets\cf2.dae
-assets\cf2x.urdf
+assets/cf2.dae
+assets/cf2x.urdf
 
-control\BaseControl.py
-control\DSLPIDControl.py
+control/BaseControl.py
+control/DSLPIDControl.py
 
-envs\BaseAviary.py
-envs\TetherModelSimulationEmvPID.py #contains code from gym_pybullet_drones project
+envs/BaseAviary.py
+envs/TetherModelSimulationEmvPID.py #contains code from gym_pybullet_drones project
 
-utils\enums.py
-utils\utils.py
+utils/enums.py
+utils/utils.py
 ```
 
 The following code files are from the [previous paper](https://ieeexplore.ieee.org/document/10161135), serving as the baseline in our paper work. A few modification were made to suit our project needs. 
 
 ```
-main\simple_baselibe_code\previousPaperCode\createTrajectorTXTfile.py
-main\simple_baselibe_code\previousPaperCode\plotTargetedTijectory.py
+main/simple_baselibe_code/previousPaperCode/createTrajectorTXTfile.py
+main/simple_baselibe_code/previousPaperCode/plotTargetedTijectory.py
 ```
 
 The following heatmap shows the velocity magnitudes during the perching trajectory. This trajectory is generated using an approach from previous work.
