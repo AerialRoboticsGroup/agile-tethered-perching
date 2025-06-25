@@ -32,7 +32,7 @@ This script handles training, evaluation (saving the best model), and testing. T
 The `--show-demo` flag controls whether to display the training GUI. It is generally not recommended as it significantly reduces the training speed. Training for 1.2M timesteps usually takes around 3-4 hours, while 120k timesteps take approximately 25-30 minutes.
 
 ```
-cd gym-pybullet-drones/examples/
+cd gym-pybullet-drones/main/
 python model_training.py -t 1200000 --algo SACfD --show-demo
 ```
 
