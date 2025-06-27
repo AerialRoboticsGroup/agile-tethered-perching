@@ -61,6 +61,21 @@ The PID parameters for the drone control are defined in `gym_pybullet_drones/con
 | Roll | 70000.0 | 0.0 | 20000.0 |
 | Pitch| 70000.0 | 0.0 | 20000.0 |
 | Yaw | 60000.0 | 500.0 | 12000.0 |
+
+## Reward $\mathbf{R}_{\text{approach}}$ break-down
+
+| ![R approach](gym_pybullet_drones/assets/r_approach_heatmap.png) |
+|:--:|
+| **(a) $\mathbf{R}_{\text{approach}}$** |
+
+| ![r proximity](gym_pybullet_drones/assets/r_proximity.png) | ![r endwp](gym_pybullet_drones/assets/r_endwaypoint.png) |
+|:--:|:--:|
+| **(b)** $r_{\text{proximity}}$ | **(c)** $r_{\text{endwaypoint}}$ |
+
+| ![p zone](gym_pybullet_drones/assets/p_zone_heatmap.png) | ![r tether](gym_pybullet_drones/assets/r_tether_heatmap.png) |
+|:--:|:--:|
+| **(d)** $p_{\text{zone}}$ | **(e)** $r_{\text{tether}}$ |
+
                                              
 ## Future Work
 - [ ] Investigate higher-level control strategies, such as velocity-based control, to enhance precision and performance beyond position control.
