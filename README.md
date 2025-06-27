@@ -44,6 +44,37 @@ This strategy was chosen based on an analysis of its smoothness, agility, and co
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | <img src="gym_pybullet_drones/assets/demo6_epi4_normal 2.gif" alt="demo6-epi4-normal" width="300"/>  | <img src="gym_pybullet_drones/assets/demo6_epi4_slow-crop.gif" alt="demo6-epi4-slow" width="400"/>                                     | <img src="gym_pybullet_drones/assets/demo6-epi4.gif" alt="demo6-epi4" width="300"/>                                                                                      |
 
+## Factors Observed Influencing Perching Performance
+
+Although the current testing shows promising results for the RL controller, perching success is not always guaranteed and can be affected by several factors. During the real-world experiments, we observed a clear influence of perching velocity, perching-weight mass, and the shape of the perching weight on the final outcome.
+
+### Velocity Effects
+
+We conducted 19 experiments to test the effect of velocity, and 15 of them were successful. The agent used was SACfD **[A,A⁻]** with a perching weight of 10 g and a tether length of 1 m. Perching time limits were set to 0.6 s, 0.8 s, 1.0 s, 1.2 s, and 1.4 s, with roughly 20 waypoints per trajectory. This corresponds to control frequencies ranging from 14.3 Hz to 33.3 Hz.
+
+After analysing all successful perching attempts, we found that the mean speed must stay within 1.90 m s⁻¹ and 2.07 m s⁻¹. When the average speed falls outside this window, perching failures begin to occur. Although the 0.6 s limit produced the highest peak speed, its mean speed was not the largest—likely because such a short window inevitably contains low-velocity acceleration and deceleration phases rather than sustained peak flight.
+
+| Time limit | Success&nbsp;rate | Peak speed (m s⁻¹) | Mean speed (m s⁻¹) | Min & Max success speed (m s⁻¹) |
+|:---------:|:----------------:|:------------------:|:------------------:|:------------------------------:|
+| 0.6 s | 0 %   | 2.987 | 1.858 | — |
+| 0.8 s | 66.7 %| 2.722 | 2.039 | 2.070 |
+| 1.0 s | 100 % | 2.564 | 2.009 | — |
+| 1.2 s | 100 % | 2.395 | 1.944 | 1.904 |
+| 1.4 s | 0 %   | 2.249 | 1.825 | — |
+
+Table shows the velocity effect on the SACfD **[A,A⁻]** perching performance (The “Min & Max” column records the minimal and maximal *mean* perching speed in the successful trials.)
+
+
+
+### Perching-Weight Shape Effects
+
+Smaller, smoother payloads reduce the likelihood of the payload striking the tether. In five consecutive runs of SACfD **[A,A⁻]** for each shape, the success rate dropped by 20 % when the payload was larger and more irregular. Tether strikes occurred in up to three out of five runs, often leading to failed wrapping.
+
+### Perching-Weight Mass
+
+We tested three payload masses—10 g, 20 g, and 30 g—using SACfD **[A,A⁻]** (1 m tether, minimal payload shape). As mass increased, success fell from 100 % at 10 g to 0 % at 20 g, and rose to 33.3 % at 30 g. Heavier loads often caused the drone to overshoot the target altitude, likely because extra thrust and torque were required, leading to controller overshoot. The single successful 30 g trial (with only one wrap) may have benefited from the added mass balancing the drone’s own weight; typically, two wraps are expected for a secure perch.
+
+
 ## PID Parameters
 
 The PID parameters for the drone control are defined in `gym_pybullet_drones/control/DSLPIDControl.py` and are specific to the CF2X drone model used in this simulation. This model is from the ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project.
