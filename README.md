@@ -64,17 +64,19 @@ The PID parameters for the drone control are defined in `gym_pybullet_drones/con
 
 ## Reward $\mathbf{R}_{\text{approach}}$ break-down
 
+$\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}$, $r_{\text{endwaypoint}}$, $r_{\text{tether}}$, and $p_{\text{zone}}$. 
+
 | ![R approach](gym_pybullet_drones/assets/r_approach_heatmap.png) |
 |:--:|
-| **(a) $\mathbf{R}_{\text{approach}}$** |
+| **(a)** $\mathbf{R}_{\text{approach}}$: guides the drone to safely approach the branch (perching target), to prepare the best condition for the follow-up wrapping. |
 
 | ![r proximity](gym_pybullet_drones/assets/r_proximity.png) | ![r endwp](gym_pybullet_drones/assets/r_endwaypoint.png) |
 |:--:|:--:|
-| **(b)** $r_{\text{proximity}}$ | **(c)** $r_{\text{endwaypoint}}$ |
+| **(b)** $r_{\text{proximity}}$: encourages the drone to move closer to the branch without collision. | **(c)** $r_{\text{endwaypoint}}$: rewards reaching the ideal final approaching waypoint that we blelive it has the best chance to wrap. |
 
 | ![p zone](gym_pybullet_drones/assets/p_zone_heatmap.png) | ![r tether](gym_pybullet_drones/assets/r_tether_heatmap.png) |
 |:--:|:--:|
-| **(d)** $p_{\text{zone}}$ | **(e)** $r_{\text{tether}}$ |
+| **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch |
 
                                              
 ## Future Work
