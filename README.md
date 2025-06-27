@@ -46,7 +46,7 @@ This strategy was chosen based on an analysis of its smoothness, agility, and co
 
 ## Factors Observed Influencing Perching Performance
 
-Although the current testing shows promising results for the RL controller, perching success is not always guaranteed and can be affected by several factors. During the real-world experiments, we observed a clear influence of perching velocity, perching-weight mass, and the shape of the perching weight on the final outcome. The corresponding videos of these experiments can be found in the project video via our [project webpage](https://kyrran.github.io/learning_agile_tensile_drone_perching_from_demo/).
+Although the current testing shows promising results for the RL controller, perching success is not always guaranteed and can be affected by several factors. During the real-world experiments, we observed a clear influence of perching velocity, perching-weight mass, and the shape of the perching weight on the final outcome. The corresponding videos of these experiments can be found in the project video embeded in our [project webpage](https://kyrran.github.io/learning_agile_tensile_drone_perching_from_demo/).
 
 ### Velocity Effects
 
