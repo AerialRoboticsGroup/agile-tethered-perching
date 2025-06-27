@@ -114,6 +114,7 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 - [ ] Investigate higher-level control strategies, such as velocity-based control, to enhance precision and performance beyond position control.
 - [ ] Explore frameworks that directly integrate PyBullet with ROS2 for seamless simulation-to-reality transfer.
 - [ ] Incorporate real-world physics elements, like wind and environmental disturbances, into the simulation to enhance realism and robustness.
+- [ ] Future work will explore the stage after the drone powers off, either by modifying the hardware of the quadrotor, adding a loop around the main body to keep the drone remain upright after power-off, or involving human intervention to rescue the quadrotor. This reserve trajectory could be learned or computed. The structure could be referred to another work from the same lab [Aerial Tensile Perching and Disentangling Mechanism for Long-Term Environmental Monitoring](https://arxiv.org/abs/2403.01890).
 
 ## Code Reference
 The following code files are from ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with or without our own modification to suit specific project needs.
