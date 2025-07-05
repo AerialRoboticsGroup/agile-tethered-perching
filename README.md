@@ -108,7 +108,7 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 
 | ![p zone](gym_pybullet_drones/assets/p_zone_heatmap.png) | ![r tether](gym_pybullet_drones/assets/r_tether_heatmap.png) |
 |:--:|:--:|
-| **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch |
+| **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch. |
 
 ### Reward $\mathbf{R}_{\text{wrap}}$ Visualisation
 This reward encourages the tether to wrap around the branch, with a heuristic goal of achieving two wraps. 
