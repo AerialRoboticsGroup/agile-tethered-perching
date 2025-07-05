@@ -93,7 +93,7 @@ The PID parameters for the drone control are defined in `gym_pybullet_drones/con
 | Pitch| 70000.0 | 0.0 | 20000.0 |
 | Yaw | 60000.0 | 500.0 | 12000.0 |
 
-## Reward $\mathbf{R}_{\text{approach}}$ break-down
+## Reward $\mathbf{R}_{\text{approach}}$ Break-down
 
 $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}$, $r_{\text{endwaypoint}}$, $r_{\text{tether}}$, and $p_{\text{zone}}$. 
 
@@ -110,10 +110,24 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 | **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch |
 
 
-## Thrust Comparision between RL Agents
+## Thrust Comparision Between RL Agents
 The thrust data were extracted from simulations conducted with a tether length of $1\,\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres. We sampled one succesful trajectory per each agent.
 
 ![thrust](gym_pybullet_drones/assets/thrust.png) 
+
+
+## Reward over Different Training Steps
+In earlier stages of training around 12k timesteps (40 episodes), all agents showed significant fluctuations in their reward curves, indicating instability and inconsistent learning. Such fluctuation suggests that the agents were still in the process of learning and had not yet converged to optimal policies.
+
+![12k](gym_pybullet_drones/assets/12k.png)
+
+As training continued, around 120k timesteps (400 episodes), the agents showed improvement and started to stabilize. However, the reward curves do not fully converge at this point, except for the SACfD agent trained with 2 demonstrations. Despite the SACfD [A] (SACfD - 2 Demos) shows the convergence trend, the agent’s performance during simulation testing revealed some limitations. Based on the results from five runs starting from arbitrary points in the simulation, its perching maneuvers are risky, with the agent not learning a steady approach to the target. 
+
+![120k](gym_pybullet_drones/assets/120k.png)
+
+The performance after 1.2M timestep (around 4000 episodes) provided the most reliable results. All SACfD agents showed clear signs of convergence, and even the SAC agent appeared to stabilize early, though it might need more time to fully converge. The agents trained for this longer duration consistently achieved both stable and high rewards, highlighting how extended training plays a key role in maximizing performance and ensuring the agents are robust during testing. This is also the agent we use eveually to run all the experiments and testing in the paper.
+ 
+![12m](gym_pybullet_drones/assets/12m.png) 
 
 
 
