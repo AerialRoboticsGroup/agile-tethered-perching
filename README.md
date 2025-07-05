@@ -122,6 +122,7 @@ The hanging reward function encourages the drone to reach a stable hanging posit
 
 ### Reward $\mathbf{P}_{\text{collision}}$ Visualisation
 This term softly penalizes the drone for being too close to the branch, at wrapping and hanging stage.
+
 ![thrust](gym_pybullet_drones/assets/p_collision.png) 
 
 
