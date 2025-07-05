@@ -111,7 +111,7 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 
 
 ## Thrust Comparision between RL Agents
-The thrust data were extracted from simulations conducted with a tether length of $1\,\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres.
+The thrust data were extracted from simulations conducted with a tether length of $1\,\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres. We sampled one succesful trajectory per each agent.
 
 ![thrust](gym_pybullet_drones/assets/thrust.png) 
 
