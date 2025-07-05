@@ -111,13 +111,13 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 
 
 ## Thrust Comparision Between RL Agents
-The thrust data were extracted from simulations conducted with a tether length of $1\,\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres. We sampled one succesful trajectory per each agent. The success defined in the simulation involves observed wrapping, and the case when the failed wrapping is caused by payload hit the tether in the simulation but emperically it would wrap around in real-world experiments.
+The thrust data were extracted from simulations conducted with a tether length of $1\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres. We sampled one succesful trajectory per each agent. The success defined in the simulation involves observed wrapping, and the case when the failed wrapping is caused by payload hit the tether in the simulation but emperically it would wrap around in real-world experiments.
 
 ![thrust](gym_pybullet_drones/assets/thrust.png) 
 
 
 ## Acceleration Comparision Between RL Agents
-The accelration data were extracted from rosbags recorded from real-world experiments in Aerial Robotics Lab, Imperial College London. All experiments were conducted with a tether length of $1\,\text{m}$ and a payload mass of $10,\text{g}$. The plot presents the accelaration profiles for each successful perching trajectory per each agent, in our real-world experiments. The success defined here means the proper wrapping was observed.
+The accelration data were extracted from rosbags recorded from real-world experiments in Aerial Robotics Lab, Imperial College London. All experiments were conducted with a tether length of 1 meter and a payload mass of 10 gram. The plot presents the accelaration profiles for each successful perching trajectory per each agent, in our real-world experiments. The success defined here means the proper wrapping was observed.
 
 ![thrust](gym_pybullet_drones/assets/acceleration.png) 
 
