@@ -154,7 +154,9 @@ class BaseAviary(gym.Env):
        
         if self.GUI:
             #### With debug GUI ########################################
-            self.CLIENT = p.connect(p.GUI) # p.connect(p.GUI, options="--opengl2")
+            # self.CLIENT = p.connect(p.GUI) # p.connect(p.GUI, options="--opengl2")
+            
+            self.CLIENT = p.connect(p.GUI, options="--width=2040 --height=2040")
             # p.getCameraImage(1080,2400)
             for i in [p.COV_ENABLE_RGB_BUFFER_PREVIEW, p.COV_ENABLE_DEPTH_BUFFER_PREVIEW, p.COV_ENABLE_SEGMENTATION_MARK_PREVIEW]:
                 p.configureDebugVisualizer(i, 0, physicsClientId=self.CLIENT)
@@ -376,22 +378,34 @@ class BaseAviary(gym.Env):
             for i in range (self.NUM_DRONES):
                 if self.PHYSICS == Physics.PYB:
                     self._physics(clipped_action[i, :], i)
-                elif self.PHYSICS == Physics.DYN:
-                    self._dynamics(clipped_action[i, :], i)
-                elif self.PHYSICS == Physics.PYB_GND:
-                    self._physics(clipped_action[i, :], i)
-                    self._groundEffect(clipped_action[i, :], i)
-                elif self.PHYSICS == Physics.PYB_DRAG:
-                    self._physics(clipped_action[i, :], i)
-                    self._drag(self.last_clipped_action[i, :], i)
-                elif self.PHYSICS == Physics.PYB_DW:
-                    self._physics(clipped_action[i, :], i)
-                    self._downwash(i)
-                elif self.PHYSICS == Physics.PYB_GND_DRAG_DW:
-                    self._physics(clipped_action[i, :], i)
-                    self._groundEffect(clipped_action[i, :], i)
-                    self._drag(self.last_clipped_action[i, :], i)
-                    self._downwash(i)
+                    
+                    forces = (clipped_action[i, :] ** 2) * self.KF
+                    total_thrust = sum(forces)
+                     # Store for info
+                    if not hasattr(self, "_last_forces"):
+                        self._last_forces = np.zeros((self.NUM_DRONES, 4))
+                    if not hasattr(self, "_last_total_thrust"):
+                        self._last_total_thrust = np.zeros(self.NUM_DRONES)
+                    self._last_forces[i, :] = forces
+                    self._last_total_thrust[i] = total_thrust
+                    
+                    
+                # elif self.PHYSICS == Physics.DYN:
+                #     self._dynamics(clipped_action[i, :], i)
+                # elif self.PHYSICS == Physics.PYB_GND:
+                #     self._physics(clipped_action[i, :], i)
+                #     self._groundEffect(clipped_action[i, :], i)
+                # elif self.PHYSICS == Physics.PYB_DRAG:
+                #     self._physics(clipped_action[i, :], i)
+                #     self._drag(self.last_clipped_action[i, :], i)
+                # elif self.PHYSICS == Physics.PYB_DW:
+                #     self._physics(clipped_action[i, :], i)
+                #     self._downwash(i)
+                # elif self.PHYSICS == Physics.PYB_GND_DRAG_DW:
+                #     self._physics(clipped_action[i, :], i)
+                #     self._groundEffect(clipped_action[i, :], i)
+                #     self._drag(self.last_clipped_action[i, :], i)
+                #     self._downwash(i)
             #### PyBullet computes the new state, unless Physics.DYN ###
             if self.PHYSICS != Physics.DYN:
                 p.stepSimulation(physicsClientId=self.CLIENT)
@@ -408,6 +422,12 @@ class BaseAviary(gym.Env):
         terminated = self._computeTerminated()
         truncated = self._computeTruncated()
         info = self._computeInfo()
+        
+        info["thrusts"] = self._last_forces.copy()
+        info["total_thrust"] = self._last_total_thrust.copy()
+        
+        
+        
         #### Advance the step counter ##############################
         self.step_counter = self.step_counter + (1 * self.PYB_STEPS_PER_CTRL)
         return obs, reward, terminated, truncated, info
@@ -725,6 +745,7 @@ class BaseAviary(gym.Env):
 
         """
         forces = np.array(rpm**2)*self.KF
+        
         torques = np.array(rpm**2)*self.KM
         if self.DRONE_MODEL == DroneModel.RACE:
             torques = -torques
@@ -846,66 +867,66 @@ class BaseAviary(gym.Env):
 
     ################################################################################
 
-    def _dynamics(self,
-                  rpm,
-                  nth_drone
-                  ):
-        """Explicit dynamics implementation.
+    # def _dynamics(self,
+    #               rpm,
+    #               nth_drone
+    #               ):
+    #     """Explicit dynamics implementation.
 
-        Based on code written at the Dynamic Systems Lab by James Xu.
+    #     Based on code written at the Dynamic Systems Lab by James Xu.
 
-        Parameters
-        ----------
-        rpm : ndarray
-            (4)-shaped array of ints containing the RPMs values of the 4 motors.
-        nth_drone : int
-            The ordinal number/position of the desired drone in list self.DRONE_IDS.
+    #     Parameters
+    #     ----------
+    #     rpm : ndarray
+    #         (4)-shaped array of ints containing the RPMs values of the 4 motors.
+    #     nth_drone : int
+    #         The ordinal number/position of the desired drone in list self.DRONE_IDS.
 
-        """
-        #### Current state #########################################
-        pos = self.pos[nth_drone,:]
-        quat = self.quat[nth_drone,:]
-        vel = self.vel[nth_drone,:]
-        rpy_rates = self.rpy_rates[nth_drone,:]
-        rotation = np.array(p.getMatrixFromQuaternion(quat)).reshape(3, 3)
-        #### Compute forces and torques ############################
-        forces = np.array(rpm**2) * self.KF
-        thrust = np.array([0, 0, np.sum(forces)])
-        thrust_world_frame = np.dot(rotation, thrust)
-        force_world_frame = thrust_world_frame - np.array([0, 0, self.GRAVITY])
-        z_torques = np.array(rpm**2)*self.KM
-        if self.DRONE_MODEL == DroneModel.RACE:
-            z_torques = -z_torques
-        z_torque = (-z_torques[0] + z_torques[1] - z_torques[2] + z_torques[3])
-        if self.DRONE_MODEL==DroneModel.CF2X or self.DRONE_MODEL==DroneModel.RACE:
-            x_torque = (forces[0] + forces[1] - forces[2] - forces[3]) * (self.L/np.sqrt(2))
-            y_torque = (- forces[0] + forces[1] + forces[2] - forces[3]) * (self.L/np.sqrt(2))
-        elif self.DRONE_MODEL==DroneModel.CF2P:
-            x_torque = (forces[1] - forces[3]) * self.L
-            y_torque = (-forces[0] + forces[2]) * self.L
-        torques = np.array([x_torque, y_torque, z_torque])
-        torques = torques - np.cross(rpy_rates, np.dot(self.J, rpy_rates))
-        rpy_rates_deriv = np.dot(self.J_INV, torques)
-        no_pybullet_dyn_accs = force_world_frame / self.M
-        #### Update state ##########################################
-        vel = vel + self.PYB_TIMESTEP * no_pybullet_dyn_accs
-        rpy_rates = rpy_rates + self.PYB_TIMESTEP * rpy_rates_deriv
-        pos = pos + self.PYB_TIMESTEP * vel
-        quat = self._integrateQ(quat, rpy_rates, self.PYB_TIMESTEP)
-        #### Set PyBullet's state ##################################
-        p.resetBasePositionAndOrientation(self.DRONE_IDS[nth_drone],
-                                          pos,
-                                          quat,
-                                          physicsClientId=self.CLIENT
-                                          )
-        #### Note: the base's velocity only stored and not used ####
-        p.resetBaseVelocity(self.DRONE_IDS[nth_drone],
-                            vel,
-                            np.dot(rotation, rpy_rates),
-                            physicsClientId=self.CLIENT
-                            )
-        #### Store the roll, pitch, yaw rates for the next step ####
-        self.rpy_rates[nth_drone,:] = rpy_rates
+    #     """
+    #     #### Current state #########################################
+    #     pos = self.pos[nth_drone,:]
+    #     quat = self.quat[nth_drone,:]
+    #     vel = self.vel[nth_drone,:]
+    #     rpy_rates = self.rpy_rates[nth_drone,:]
+    #     rotation = np.array(p.getMatrixFromQuaternion(quat)).reshape(3, 3)
+    #     #### Compute forces and torques ############################
+    #     forces = np.array(rpm**2) * self.KF
+    #     thrust = np.array([0, 0, np.sum(forces)])
+    #     thrust_world_frame = np.dot(rotation, thrust)
+    #     force_world_frame = thrust_world_frame - np.array([0, 0, self.GRAVITY])
+    #     z_torques = np.array(rpm**2)*self.KM
+    #     if self.DRONE_MODEL == DroneModel.RACE:
+    #         z_torques = -z_torques
+    #     z_torque = (-z_torques[0] + z_torques[1] - z_torques[2] + z_torques[3])
+    #     if self.DRONE_MODEL==DroneModel.CF2X or self.DRONE_MODEL==DroneModel.RACE:
+    #         x_torque = (forces[0] + forces[1] - forces[2] - forces[3]) * (self.L/np.sqrt(2))
+    #         y_torque = (- forces[0] + forces[1] + forces[2] - forces[3]) * (self.L/np.sqrt(2))
+    #     elif self.DRONE_MODEL==DroneModel.CF2P:
+    #         x_torque = (forces[1] - forces[3]) * self.L
+    #         y_torque = (-forces[0] + forces[2]) * self.L
+    #     torques = np.array([x_torque, y_torque, z_torque])
+    #     torques = torques - np.cross(rpy_rates, np.dot(self.J, rpy_rates))
+    #     rpy_rates_deriv = np.dot(self.J_INV, torques)
+    #     no_pybullet_dyn_accs = force_world_frame / self.M
+    #     #### Update state ##########################################
+    #     vel = vel + self.PYB_TIMESTEP * no_pybullet_dyn_accs
+    #     rpy_rates = rpy_rates + self.PYB_TIMESTEP * rpy_rates_deriv
+    #     pos = pos + self.PYB_TIMESTEP * vel
+    #     quat = self._integrateQ(quat, rpy_rates, self.PYB_TIMESTEP)
+    #     #### Set PyBullet's state ##################################
+    #     p.resetBasePositionAndOrientation(self.DRONE_IDS[nth_drone],
+    #                                       pos,
+    #                                       quat,
+    #                                       physicsClientId=self.CLIENT
+    #                                       )
+    #     #### Note: the base's velocity only stored and not used ####
+    #     p.resetBaseVelocity(self.DRONE_IDS[nth_drone],
+    #                         vel,
+    #                         np.dot(rotation, rpy_rates),
+    #                         physicsClientId=self.CLIENT
+    #                         )
+    #     #### Store the roll, pitch, yaw rates for the next step ####
+    #     self.rpy_rates[nth_drone,:] = rpy_rates
 
     def _integrateQ(self, quat, omega, dt):
         omega_norm = np.linalg.norm(omega)

@@ -8,7 +8,6 @@ import time
 
 from gym_pybullet_drones.envs.TetherModelSimulationEnvPID import TetherModelSimulationEnvPID
 
-
 '''reference:https://github.com/TommyWoodley/TommyWoodleyMEngProject'''
 
 class BulletDroneEnv(TetherModelSimulationEnvPID):
@@ -46,12 +45,12 @@ class BulletDroneEnv(TetherModelSimulationEnvPID):
 
     def reset(self, seed: int=None, options: Dict[str, Any] = None,
               degrees: int = None, position=None, branch_pos=None, variable=None) -> Tuple[np.ndarray, Dict[Any, Any]]:
-        postion_set = np.array([1.97,0.0,3.0],dtype=np.float32).astype(np.float32)
-        reset_pos = position if position is not None else postion_set
+        
+        # postion_set = np.array([1.97,0.0,3.0],dtype=np.float32).astype(np.float32)
+        # reset_pos = position if position is not None else postion_set
         
         # Reset using the parent class method
-        
-        # reset_pos = position if position is not None else self._generate_reset_position(seed)
+        reset_pos = position if position is not None else self._generate_reset_position(seed)
         super().reset(reset_pos, seed, branch_pos=branch_pos, variable=variable)
         
         self.num_steps = 0

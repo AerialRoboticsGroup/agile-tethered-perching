@@ -31,7 +31,7 @@ def get_Angle(d,t,c): #enter three points return the angel
 
 def plotFlyingTrajectory(distanceToTarget, angelDrone, diameterTarget, positionTarget = np.array([0,2.7]), lengthFinalStraight = 1):
 
-    startPosDrone = np.array([1.97, 3.0])
+    startPosDrone = np.array([1.97, 3.00])
     XD, YD = startPosDrone[0], startPosDrone[1]
     
     LengthRope = 1.0

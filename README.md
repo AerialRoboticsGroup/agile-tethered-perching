@@ -11,7 +11,7 @@ This project is an initial exploration into building a stable simulation that co
 Tested on Ubuntu 22.04
 
 ```
-git clone https://github.com/AerialRoboticsGroup/agile-tethered-perching.git
+git clone https://github.com/kyrran/gym-pybullet-drones
 cd gym-pybullet-drones/
 
 conda create -n drones python=3.10
@@ -109,12 +109,19 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 |:--:|:--:|
 | **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch |
 
+
+## Thrust Comparision between RL Agents
+The thrust data were extracted from simulations conducted with a tether length of $1\,\text{m}$ and a payload mass of $6\times10^{-7}\,\text{kg}$. The plot presents the thrust profiles for all successful perching manoeuvres.
+
+![thrust](gym_pybullet_drones/assets/thrust.png) 
+
+
+
                                              
 ## Future Work
 - [ ] Investigate higher-level control strategies, such as velocity-based control, to enhance precision and performance beyond position control.
 - [ ] Explore frameworks that directly integrate PyBullet with ROS2 for seamless simulation-to-reality transfer.
 - [ ] Incorporate real-world physics elements, like wind and environmental disturbances, into the simulation to enhance realism and robustness.
-- [ ] Future work will explore the stage after the drone powers off, either by modifying the hardware of the quadrotor, adding a loop around the main body to keep the drone remain upright after power-off, or involving human intervention to rescue the quadrotor. This reserve trajectory could be learned or computed. The structure could be referred to another work from the same lab [Aerial Tensile Perching and Disentangling Mechanism for Long-Term Environmental Monitoring](https://arxiv.org/abs/2403.01890).
 
 ## Code Reference
 The following code files are from ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with or without our own modification to suit specific project needs.
@@ -172,6 +179,6 @@ conda install -c conda-forge gcc=12.1.0
 - Jacopo Panerati and Hehui Zheng and SiQi Zhou and James Xu and Amanda Prorok and Angela P. Schoellig (2021) [*Learning to Fly---a Gym Environment with PyBullet Physics for Reinforcement Learning of Multi-agent Quadcopter Control*](https://arxiv.org/abs/2103.02142) 
 - Antonin Raffin, Ashley Hill, Maximilian Ernestus, Adam Gleave, Anssi Kanervisto, and Noah Dormann (2019) [*Stable Baselines3*](https://github.com/DLR-RM/stable-baselines3)
 - F. Hauf et al., [*Learning Tethered Perching for Aerial Robots*](https://ieeexplore.ieee.org/document/10161135) 2023 IEEE International Conference on Robotics and Automation (ICRA), London, United Kingdom, 2023, pp. 1298-1304, doi: 10.1109/ICRA48891.2023.10161135.
-- Tian Lan, [Aerial Tensile Perching and Disentangling Mechanism for Long-Term Environmental Monitoring](https://arxiv.org/abs/2403.01890).
+- Tommy Woodley (2024) [*Agile Trajectory Generation for Tensile Perching with Aerial Robots*](https://github.com/TommyWoodley/TommyWoodleyMEngProject)
 
 
