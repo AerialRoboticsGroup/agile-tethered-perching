@@ -13,11 +13,12 @@ def tanh_wrap_reward(num_wraps, k=2, max_reward=1):
 
 def continuous_distance_penalty(dist_drone_branch, max_dist=0.1, max_penalty=-0.5):
     """
-    Provides a smooth distance-based penalty. The closer the drone is to the branch, the smaller the penalty.
+    Larger negative penalty the CLOSER the drone is to the branch.
+    Zero penalty once it is at or beyond `max_dist`.
     """
-    penalty = np.clip(dist_drone_branch / max_dist, 0, 1) * max_penalty
+    frac = np.clip(dist_drone_branch / max_dist, 0, 1)     # 0 (close) … 1 (far)
+    penalty = (1 - frac) * max_penalty                     # invert the relationship
     return penalty
-
 
 class RewardSystem():
     def __init__(self, branch_pos, tether_length) -> None:
@@ -68,8 +69,8 @@ class RewardSystem():
         assert -1 <= hanging_reward <= 1, f"Invalid hanging_reward: {hanging_reward}"
 
         ### 4. Distance penalty - softly penalizes the drone for being too close to the branch
-        distance_reward = continuous_distance_penalty(dist_drone_branch)
-        assert -0.5 <= distance_reward <= 0, f"Invalid distance_reward: {distance_reward}"
+        p_collision = continuous_distance_penalty(dist_drone_branch)
+        assert -0.5 <= p_collision <= 0, f"Invalid distance_reward: {p_collision}"
 
         # if num_wraps > 0:
         #     print(f"num:{num_wraps}")
@@ -79,7 +80,7 @@ class RewardSystem():
         if num_wraps > 0.5:
             # 1 + (0~2) = 1~3
             # print("++++++++++++wrapping+++++++-")  
-            total_reward = 2 + 2*wrapping_reward + distance_reward #-1,1+ 1,2, -1,1 = 1,3
+            total_reward = 2 + 2*wrapping_reward + p_collision #-1,1+ 1,2, -1,1 = 1,3
     
             if num_wraps > 1.0:
                 # print("##############################")

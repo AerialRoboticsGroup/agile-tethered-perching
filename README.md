@@ -93,7 +93,8 @@ The PID parameters for the drone control are defined in `gym_pybullet_drones/con
 | Pitch| 70000.0 | 0.0 | 20000.0 |
 | Yaw | 60000.0 | 500.0 | 12000.0 |
 
-## Reward $\mathbf{R}_{\text{approach}}$ Break-down
+## Reward Visualisation 
+### Reward $\mathbf{R}_{\text{approach}}$ Break-down
 
 $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}$, $r_{\text{endwaypoint}}$, $r_{\text{tether}}$, and $p_{\text{zone}}$. 
 
@@ -108,6 +109,22 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 | ![p zone](gym_pybullet_drones/assets/p_zone_heatmap.png) | ![r tether](gym_pybullet_drones/assets/r_tether_heatmap.png) |
 |:--:|:--:|
 | **(d)** $p_{\text{zone}}$: penalises entry into undesirable regions that we think it's unnecessary to explore. | **(e)** $r_{\text{tether}}$: rewards consecutive tether contact with the branch |
+
+### Reward $\mathbf{R}_{\text{wrap}}$ Visualisation
+This reward encourages the tether to wrap around the branch, with a heuristic goal of achieving two wraps. 
+
+![thrust](gym_pybullet_drones/assets/wrap.png) 
+
+### Reward $\mathbf{R}_{\text{hang}}$ Visualisation
+The hanging reward function encourages the drone to reach a stable hanging position within a safe zone, defined by a box-shaped region around the optimal hanging point. The reward decays smoothly as the drone deviates from this zone. Upon the drone reaching this bounding box, the episode is terminated. 
+
+![thrust](gym_pybullet_drones/assets/hang.png) 
+
+### Reward $\mathbf{P}_{\text{collision}}$ Visualisation
+This term softly penalizes the drone for being too close to the branch, at wrapping and hanging stage.
+![thrust](gym_pybullet_drones/assets/p_collision.png) 
+
+
 
 
 ## Thrust Comparision Between RL Agents
