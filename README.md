@@ -123,6 +123,8 @@ The thrust data were extracted from simulations conducted with a tether length o
 - [ ] Explore frameworks that directly integrate PyBullet with ROS2 for seamless simulation-to-reality transfer.
 - [ ] Incorporate real-world physics elements, like wind and environmental disturbances, into the simulation to enhance realism and robustness.
 
+- [ ] Future work will explore the stage after the drone powers off, either by modifying the hardware of the quadrotor, adding a loop around the main body to keep the drone remain upright after power-off, or involving human intervention to rescue the quadrotor. This reserve trajectory could be learned or computed. The structure could be referred to another work from the same lab [Aerial Tensile Perching and Disentangling Mechanism for Long-Term Environmental Monitoring](https://arxiv.org/abs/2403.01890)
+
 ## Code Reference
 The following code files are from ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with or without our own modification to suit specific project needs.
 
@@ -179,6 +181,5 @@ conda install -c conda-forge gcc=12.1.0
 - Jacopo Panerati and Hehui Zheng and SiQi Zhou and James Xu and Amanda Prorok and Angela P. Schoellig (2021) [*Learning to Fly---a Gym Environment with PyBullet Physics for Reinforcement Learning of Multi-agent Quadcopter Control*](https://arxiv.org/abs/2103.02142) 
 - Antonin Raffin, Ashley Hill, Maximilian Ernestus, Adam Gleave, Anssi Kanervisto, and Noah Dormann (2019) [*Stable Baselines3*](https://github.com/DLR-RM/stable-baselines3)
 - F. Hauf et al., [*Learning Tethered Perching for Aerial Robots*](https://ieeexplore.ieee.org/document/10161135) 2023 IEEE International Conference on Robotics and Automation (ICRA), London, United Kingdom, 2023, pp. 1298-1304, doi: 10.1109/ICRA48891.2023.10161135.
-- Tommy Woodley (2024) [*Agile Trajectory Generation for Tensile Perching with Aerial Robots*](https://github.com/TommyWoodley/TommyWoodleyMEngProject)
 
 
