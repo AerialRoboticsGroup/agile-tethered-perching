@@ -119,7 +119,7 @@ The thrust data were extracted from simulations conducted with a tether length o
 ## Acceleration Comparision Between RL Agents
 The accelration data were extracted from rosbags recorded from real-world experiments in Aerial Robotics Lab, Imperial College London. All experiments were conducted with a tether length of $1\,\text{m}$ and a payload mass of $10,\text{g}$. The plot presents the accelaration profiles for each successful perching trajectory per each agent, in our real-world experiments. The success defined here means the proper wrapping was observed.
 
-![thrust](gym_pybullet_drones/assets/thrust.png) 
+![thrust](gym_pybullet_drones/assets/acceleration.png) 
 
 
 ## Reward over Different Training Steps
