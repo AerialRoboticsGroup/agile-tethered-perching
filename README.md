@@ -116,7 +116,7 @@ This reward encourages the tether to wrap around the branch, with a heuristic go
 ![thrust](gym_pybullet_drones/assets/wrap.png) 
 
 ### Reward $\mathbf{R}_{\text{hang}}$ Visualisation
-The hanging reward function encourages the drone to reach a stable hanging position within a safe zone, defined by a box-shaped region around the optimal hanging point. The reward decays smoothly as the drone deviates from this zone. Upon the drone reaching this bounding box, the episode is terminated. 
+The hanging reward function encourages the drone to reach a stable hanging position within a safe zone, defined by a box-shaped region around the optimal hanging point. The reward decays smoothly as the drone deviates from this zone. Upon the drone reaching this bounding box, the episode is terminated. Notely, this work mainly focuses on approaching and wrapping stage.
 
 ![thrust](gym_pybullet_drones/assets/hang.png) 
 
