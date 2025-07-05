@@ -104,7 +104,7 @@ $\mathbf{R}{\text{approach}}$ is the sum of four terms – $r_{\text{proximity}}
 
 | ![r proximity](gym_pybullet_drones/assets/r_proximity.png) | ![r endwp](gym_pybullet_drones/assets/r_endwaypoint.png) |
 |:--:|:--:|
-| **(b)** $r_{\text{proximity}}$: encourages the drone to move closer to the branch without collision. | **(c)** $r_{\text{endwaypoint}}$: rewards reaching the ideal final approaching waypoint that we blelive it has the best chance to wrap. |
+| **(b)** $r_{\text{proximity}}$: encourages the drone to move closer to the branch without collision. | **(c)** $r_{\text{endwaypoint}}$: rewards reaching the ideal final waypoint at approaching stage. |
 
 | ![p zone](gym_pybullet_drones/assets/p_zone_heatmap.png) | ![r tether](gym_pybullet_drones/assets/r_tether_heatmap.png) |
 |:--:|:--:|
