@@ -144,11 +144,11 @@ The accelration data were extracted from rosbags recorded from real-world experi
 
 ## Reward over Different Training Steps
 
-The simulation configuration is as below:
+The simulation configuration to do the following training is as below:
 
 - tether length: 1 meter
 - payload mass: 1e-6 kg
-
+- starting point: 5 different starting points
 
 
 In earlier stages of training around 12k timesteps (40 episodes), all agents showed significant fluctuations in their reward curves, indicating instability and inconsistent learning. Such fluctuation suggests that the agents were still in the process of learning and had not yet converged to optimal policies.
