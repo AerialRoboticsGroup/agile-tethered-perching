@@ -2,7 +2,9 @@
 
 This project introduces a **stable PyBullet simulation environment** designed to simulate the **wrapping of a soft tether**, and to provide a reinforcement learning (RL) setting for a tethered drone to master an **agile** perching **strategy**. The training employs the Soft Actor-Critic from Demonstration (SACfD) technique, with the algorithm implemented using the ['Stable-Baselines3'](https://github.com/DLR-RM/stable-baselines3) library.
 
-A complete tethered drone system (drone-tether-payload) was simulated, incorporating realistic drone dynamics, a PID controller, and a tether-payload system to model the perching process. The drone model used is a MAV model inherited from the ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with its compatible PID controller developed by the same team. The simulated MAV has an approximate 1:10 mass ratio, compared to the customized drone used in real-world experiments. 
+A complete tethered drone system (drone-tether-payload) was simulated, incorporating realistic drone dynamics, a PID controller, and a tether-payload system to model the perching process. The drone model used is a MAV model inherited from the ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with its compatible PID controller developed by the same team. 
+
+The simulated MAV has an approximate 1:10 mass ratio, compared to the customized drone used in real-world experiments. In simulation, the tether length is set as 1 meter, and payload mass at 1e-6 kg. These values are also the nominal value used to run the comparison experiments, in Section III.C in paper, to evaluate the promising perching range for each agent.
 
 This project is an initial exploration into building a stable simulation that combines soft tether dynamics, drone dynamics, and a reinforcement learning framework. While initial sim-to-real experiments have been conducted, this methodology remains a preliminary exploration. We recognize there is significant potential for improving the sim-to-real transfer, and we are committed to the ongoing refinement of this work.
 
@@ -141,6 +143,14 @@ The accelration data were extracted from rosbags recorded from real-world experi
 
 
 ## Reward over Different Training Steps
+
+The simulation configuration is as below:
+
+- tether length: 1 meter
+- payload mass: 1e-6 kg
+
+
+
 In earlier stages of training around 12k timesteps (40 episodes), all agents showed significant fluctuations in their reward curves, indicating instability and inconsistent learning. Such fluctuation suggests that the agents were still in the process of learning and had not yet converged to optimal policies.
 
 ![12k](gym_pybullet_drones/assets/12k.png)
