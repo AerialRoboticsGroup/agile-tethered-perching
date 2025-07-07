@@ -104,7 +104,7 @@ def save_to_json(state_action_reward, version):
 
 def main():
     """Main function to process and transform demonstrations."""
-    bulletDroneEnv = BulletDroneEnv()
+    bulletDroneEnv = BulletDroneEnv(gui=False)
 
     csv_files = ["rosbag2_2024_05_22-17_00_56_filtered_normalized.csv", 
                  "rosbag2_2024_05_22-17_03_00_filtered_normalized.csv",
