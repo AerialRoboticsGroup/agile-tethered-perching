@@ -1,5 +1,8 @@
 # Learning Agile Tensile Perching for Aerial Robots from Demonstration
 
+[Arxiv](https://arxiv.org/pdf/2507.06172)
+[Project Webpage](https://kyrran.github.io/learning_agile_tensile_drone_perching_from_demo/)
+
 This project introduces a **stable PyBullet simulation environment** designed to simulate the **wrapping of a soft tether**, and to provide a reinforcement learning (RL) setting for a tethered drone to master an **agile** perching **strategy**. The training employs the Soft Actor-Critic from Demonstration (SACfD) technique, with the algorithm implemented using the ['Stable-Baselines3'](https://github.com/DLR-RM/stable-baselines3) library.
 
 A complete tethered drone system (drone-tether-payload) was simulated, incorporating realistic drone dynamics, a PID controller, and a tether-payload system to model the perching process. The drone model used is a MAV model inherited from the ['gym_pybullet_drones'](https://github.com/utiasDSL/gym-pybullet-drones) project, with its compatible PID controller developed by the same team. 
